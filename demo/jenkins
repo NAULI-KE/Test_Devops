@@ -5,7 +5,7 @@ node{
      stage('Mvn Package'){
        def mvnHome = tool name: 'maven-3', type: 'maven'
        def mvnCMD = "${mvnHome}/bin/mvn"
-       bat "${mvnCMD} clean package"
+       bat "${mvnCMD} clean install"
      }
      stage('Build Docker Image'){
        sh label: '', script: 'docker build -t smburu2019/my-app:1.0.0 .'
