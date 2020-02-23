@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
-			User User = UserFactory.create(UserDTO.getFirstname(), UserDTO.getLastname());
+			User User = UserFactory.create(UserDTO.getFirstname(), UserDTO.getLastname(),RecordStatus.Active);
 
 			logger.info("Create Class -> {}", User.toString());
 
@@ -69,19 +69,15 @@ public class UserServiceImpl implements UserService {
 
 		try {
 
-			User User = UserFactory.create(UserDTO.getFirstname(), UserDTO.getLastname());
+			User user = UserFactory.UpdateUser(UserDTO.getFirstname(), UserDTO.getLastname(),RecordStatus.Active);
 
-			User.update(UserDTO.getId(), UserDTO.getCreatedDate(), UserDTO.getCreatedById(),
-					UserDTO.getCreatedByUserName(), UserDTO.getUpdatedById(),
-					UserDTO.getUpdatedByUserName());
+			logger.info("Update User -> {}", user.toString());
 
-			logger.info("Update User -> {}", User.toString());
-
-			User = UserRepository.save(User);
+			user = UserRepository.save(user);
 
 			ResponseDTO responseDTO = new ResponseDTO();
 
-			responseDTO.setData(modelMapper.map(User, UserDTO.class));
+			responseDTO.setData(modelMapper.map(user, UserDTO.class));
 
 			responseDTO.setStatus(ResponseStatus.Success);
 

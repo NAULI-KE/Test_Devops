@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.commons.RecordStatus;
 import com.example.demo.commons.ResponseDTO;
+import com.example.demo.user.User;
 import com.example.demo.user.UserDTO;
 import com.example.demo.user.UserService;
 
@@ -24,13 +25,11 @@ public class UsersController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/index")
+	@GetMapping("/GetAllActiveUsers")
 	public List<UserDTO> index() {
 
 		return userService.findAll(RecordStatus.Active);
 	}
-
-	
 
 	@PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
 	public ResponseDTO create(@RequestBody UserDTO userDTO) {
@@ -38,6 +37,24 @@ public class UsersController {
 		return userService.save(userDTO);
 
 	}
+	
+	@GetMapping("/GetUserById/{id}")
+	public UserDTO findById(@PathVariable("id") String id) {
 
-
+	    return userService.findById(id);
+}
+	@PostMapping("/EditUserById/{id}")
+	public ResponseDTO editUser(@PathVariable("id") String id, @RequestBody UserDTO userDTO) {
+		
+		UserDTO u = userService.findById(id);
+		
+		u.setFirstname(userDTO.getFirstname());
+		
+		u.setLastname(userDTO.getLastname());
+		
+		ResponseDTO responseDTO = userService.update(userDTO);
+		
+		return responseDTO;
+		
+	}
 }

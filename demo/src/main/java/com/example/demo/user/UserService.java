@@ -14,5 +14,5 @@ public interface UserService {
 	public UserDTO findById(String id);
 
 	public List<UserDTO> findAll(RecordStatus recordStatus);
-
+	
 }
