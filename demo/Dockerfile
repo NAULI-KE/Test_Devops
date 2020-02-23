@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8
 # set maintainer
 LABEL maintainer "samdevops@gmail.com"
 
