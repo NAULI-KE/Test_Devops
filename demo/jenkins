@@ -1,0 +1,19 @@
+node{
+     stage('SCM Checkout'){
+         git credentialsId: 'git-creds', url: 'https://github.com/njorothegniuos/Test_Devops.git'
+     }
+     stage('Mvn Package'){
+       def mvnHome = tool name: 'maven-3', type: 'maven'
+       def mvnCMD = "${mvnHome}/bin/mvn"
+       bat "${mvnCMD} clean package"
+     }
+     stage('Build Docker Image'){
+       sh label: '', script: 'docker build -t smburu2019/my-app:1.0.0 .'
+     }
+     stage('Push Docker Image'){
+         withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+           sh "docker login -u smburu2019 -p ${dockerHubPwd}"
+         }
+         sh label: '', script: 'docker push smburu2019/my-app:1.0.0'
+     }
+}
