@@ -8,12 +8,12 @@ node{
        bat "${mvnCMD} clean install"
      }
      stage('Build Docker Image'){
-       sh label: '', script: 'docker build -t smburu2019/my-app:1.0.0 .'
+       bat label: '', script: 'docker build -t smburu2019/my-app:1.0.0 .'
      }
      stage('Push Docker Image'){
          withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
-           sh "docker login -u smburu2019 -p ${dockerHubPwd}"
+           bat "docker login -u smburu2019 -p ${dockerHubPwd}"
          }
-         sh label: '', script: 'docker push smburu2019/my-app:1.0.0'
+         bat label: '', script: 'docker push smburu2019/my-app:1.0.0'
      }
 }
