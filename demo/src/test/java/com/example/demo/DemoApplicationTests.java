@@ -3,6 +3,8 @@ package com.example.demo;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,49 +18,54 @@ import com.example.demo.user.UserDTO;
 import com.example.demo.user.UserFactory;
 import com.example.demo.user.UserRepository;
 import com.example.demo.user.UserServiceImpl;
+import com.example.demo.user.UserSpecifications;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
+	/*
 	
 	@InjectMocks
-	private UserServiceImpl bs;
+	private UserServiceImpl userServiceImpl;
 	
 	@Mock
 	UserRepository repo;
 	
-	private static final String id = "2c9ee08170702b180170703ec4bf000";
+	@Mock
+	UserDTO userDTO;
 	
-	private RecordStatus recordStatus;
+	private static final String id = "8ac0c285705c215701705c2702a80000";
 	
-	/*@Test
+	
+	@Test
 	public void getAllTest() {
 		
-		bs.findAll(recordStatus.Active);
+		 userServiceImpl.findAll(RecordStatus.Active);
+
+		verify(repo).findAll(UserSpecifications.withRecordStatus(RecordStatus.Active));
 		
-		verify(repo).findAll();
 	}
 	
 	@Test
 	public void save() {
-		UserDTO b = mock(UserDTO.class);
 		
-		User user = UserFactory.create(b.getFirstname(), b.getLastname(),RecordStatus.Active);
+		userServiceImpl.save(userDTO);
 		
-		bs.save(b);
+		User user = UserFactory.create(userDTO.getFirstname(), userDTO.getLastname(),RecordStatus.Active);
 		
 		verify(repo).save(user);
 		
 	}
-	*/
+	
 	
 	@Test
 	public void findById() {
 		
-		UserDTO userDTO = bs.findById(id);
+		UserDTO userDTO = userServiceImpl.findById(id);
 		
 		verify(repo).findById(id);
 		
 	}
+	*/
 	
 }
